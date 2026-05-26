@@ -1,117 +1,166 @@
-<div class="item">
-      <div class="item-info">
-        <div class="item-name">Қанаттар (wings)</div>
-        <div class="item-desc">Тауық қанаты, BBQ соусы</div>
-      </div>
-      <span class="price">1 800 ₸</span>
-    </div>
-  </div>
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+  <meta charset="UTF-8">
+  <title>DAMAQ Restaurant</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #1a0a00;
+      color: #fff;
+    }
+    header {
+      background: linear-gradient(135deg, #8B0000, #ff6600);
+      text-align: center;
+      padding: 40px 20px;
+    }
+    header h1 {
+      font-size: 60px;
+      letter-spacing: 10px;
+      color: #FFD700;
+      text-shadow: 3px 3px 10px #000;
+    }
+    header p {
+      font-size: 18px;
+      color: #ffe0b2;
+      margin-top: 10px;
+    }
+    nav {
+      background: #2c0a00;
+      text-align: center;
+      padding: 15px;
+    }
+    nav a {
+      color: #FFD700;
+      margin: 0 20px;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: bold;
+    }
+    .hero {
+      text-align: center;
+      padding: 40px 20px;
+      background: #2c0a00;
+      font-size: 22px;
+      color: #ff9933;
+    }
+    .menu-container {
+      max-width: 900px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+    .menu-section {
+      background: #2c1500;
+      border-radius: 15px;
+      margin-bottom: 25px;
+      overflow: hidden;
+      border: 1px solid #ff6600;
+    }
+    .menu-section h2 {
+      background: linear-gradient(135deg, #8B0000, #ff6600);
+      padding: 15px 25px;
+      font-size: 22px;
+      color: #FFD700;
+    }
+    .item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 25px;
+      border-bottom: 1px solid #3d1a00;
+    }
+    .item:last-child { border-bottom: none; }
+    .item-info { flex: 1; }
+    .item-name {
+      font-size: 17px;
+      font-weight: bold;
+      color: #fff;
+    }
+    .item-desc {
+      font-size: 13px;
+      color: #aaa;
+      margin-top: 4px;
+    }
+    .price {
+      font-size: 18px;
+      font-weight: bold;
+      color: #FFD700;
+      margin-left: 20px;
+    }
+    footer {
+      text-align: center;
+      padding: 30px;
+      background: #2c0a00;
+      color: #ff9933;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>🍽️ DAMAQ</h1>
+  <p>Дәстүрлі қазақ және шығыс тағамдары</p>
+  <p>📍 Алматы қ. | ☎️ +7 700 000 0000 | ⏰ 10:00 - 23:00</p>
+</header>
+
+<nav>
+  <a href="#">🏠 Басты бет</a>
+  <a href="#">🍽️ Мәзір</a>
+  <a href="#">📞 Байланыс</a>
+  <a href="#">📋 Тапсырыс</a>
+</nav>
+
+<div class="hero">
+  ✨ Үздік тағамдар, жылы қызмет, керемет дәм ✨
+</div>
+
+<div class="menu-container">
 
   <div class="menu-section">
-    <h2>🍰 Десерттер</h2>
+    <h2>🥗 Салаттар</h2>
     <div class="item">
       <div class="item-info">
-        <div class="item-name">Чак-чак</div>
-        <div class="item-desc">Дәстүрлі татар тәттісі, бал</div>
+        <div class="item-name">Цезарь салаты</div>
+        <div class="item-desc">Тауық еті, пармезан, сухарики, цезарь соусы</div>
       </div>
-      <span class="price">600 ₸</span>
+      <span class="price">1 200 ₸</span>
     </div>
     <div class="item">
       <div class="item-info">
-        <div class="item-name">Баурсак</div>
-        <div class="item-desc">Үй баурсағы, қаймақ немесе бал</div>
+        <div class="item-name">Грек салаты</div>
+        <div class="item-desc">Қияр, помидор, зәйтүн, фета ірімшігі</div>
       </div>
-      <span class="price">500 ₸</span>
+      <span class="price">1 000 ₸</span>
     </div>
     <div class="item">
       <div class="item-info">
-        <div class="item-name">Шоколадты торт</div>
-        <div class="item-desc">Бельгия шоколады, кілегей</div>
+        <div class="item-name">Шопан салаты</div>
+        <div class="item-desc">Жаңа көкөністер, зәйтүн майы</div>
       </div>
       <span class="price">900 ₸</span>
     </div>
     <div class="item">
       <div class="item-info">
-        <div class="item-name">Тирамису</div>
-        <div class="item-desc">Итальян десерті, маскарпоне</div>
-      </div>
-      <span class="price">1 100 ₸</span>
-    </div>
-  </div>
-
-  <div class="menu-section">
-    <h2>🥤 Сусындар</h2>
-    <div class="item">
-      <div class="item-info">
-        <div class="item-name">Қымыз</div>
-        <div class="item-desc">Табиғи биенің сүті</div>
-      </div>
-      <span class="price">500 ₸</span>
-    </div>
-    <div class="item">
-      <div class="item-info">
-        <div class="item-name">Шұбат</div>
-        <div class="item-desc">Түйе сүті, пайдалы және дәмді</div>
-      </div>
-      <span class="price">600 ₸</span>
-    </div>
-    <div class="item">
-      <div class="item-info">
-        <div class="item-name">Шай (шәйнек)</div>
-        <div class="item-desc">Қара немесе жасыл шай</div>
-      </div>
-      <span class="price">400 ₸</span>
-    </div>
-    <div class="item">
-      <div class="item-info">
-        <div class="item-name">Жаңа апельсин шырыны</div>
-        <div class="item-desc">100% табиғи, қантсыз</div>
-      </div>
-      <span class="price">700 ₸</span>
-    </div>
-    <div class="item">
-      <div class="item-info">
-        <div class="item-name">Алма шырыны</div>
-        <div class="item-desc">Жергілікті алмадан жасалған</div>
-      </div>
-      <span class="price">600 ₸</span>
-    </div>
-    <div class="item">
-      <div class="item-info">
-        <div class="item-name">Лимонад</div>
-        <div class="item-desc">Лимон, жалбыз, газды су</div>
-      </div>
-      <span class="price">650 ₸</span>
-    </div>
-    <div class="item">
-      <div class="item-info">
-        <div class="item-name">Қара кофе</div>
-        <div class="item-desc">Эспрессо, американо немесе капучино</div>
-      </div>
-      <span class="price">500 ₸</span>
-    </div>
-    <div class="item">
-      <div class="item-info">
-        <div class="item-name">Смузи</div>
-        <div class="item-desc">Банан, құлпынай, йогурт</div>
+        <div class="item-name">Оливье салаты</div>
+        <div class="item-desc">Картоп, жұмыртқа, жасымық, майонез</div>
       </div>
       <span class="price">800 ₸</span>
     </div>
     <div class="item">
       <div class="item-info">
-        <div class="item-name">Айран</div>
-        <div class="item-desc">Үй айраны, сергітуші</div>
+        <div class="item-name">Тұна балық салаты</div>
+        <div class="item-desc">Тұна, помидор, жасыл салат, лимон</div>
       </div>
-      <span class="price">350 ₸</span>
+      <span class="price">1 400 ₸</span>
     </div>
-  </div>
-
-</div>
-
-<footer>
-  <p>🍽️ DAMAQ Restaurant © 2025</p>
-  <p>Дәмді тағам — бақытты өмір!</p>
-</footer>
-
-</body>
-</html>
+    <div class="item">
+      <div class="item-info">
+        <div class="item-name">Корейлік сәбіз салаты</div>
+        <div class="item-desc">Корейше маринадталған сәбіз, сарымсақ</div>
+      </div>
+      <span class="price">700 ₸</span>
+    </div>
+    <div class="item">
+      <div class="item-info">
