@@ -1,13 +1,22 @@
+from flask import Flask, request, jsonify
 import sqlite3
 import re
 import hashlib
 
+app = Flask(__name__)
 DB_PATH = '../database/damaq.db'
 
 def get_db():
     conn = sqlite3.connect(DB_PATH)
     conn.row_factory = sqlite3.Row
     return conn
+
+def hash_password(password):
+    return hashlib.sha256(password.encode()).hexdigest()
+
+def validate_email(email):
+    pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+    return re.match(pattern, email) is not None
 
 def init_db():
     conn = get_db()
@@ -31,61 +40,92 @@ def init_db():
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
         FOREIGN KEY (user_id) REFERENCES users(id),
         FOREIGN KEY (menu_item_id) REFERENCES menu_items(id))''')
+    
+    cursor.execute('SELECT COUNT(*) FROM menu_items')
+    if cursor.fetchone()[0] == 0:
+        items = [
+            ("Бешбармақ", "Дәстүрлі қазақ тағамы", 2500, "Негізгі"),
+            ("Плов", "Өзбек плові", 1800, "Негізгі"),
+            ("Манты", "Қол манты", 1500, "Негізгі"),
+            ("Цезарь салаты", "Тауық еті, пармезан", 1200, "Салат"),
+            ("Шай", "Қара шай", 400, "Сусын"),
+        ]
+        cursor.executemany('INSERT INTO menu_items (name, description, price, category) VALUES (?, ?, ?, ?)', items)
+    
     conn.commit()
     conn.close()
 
-# Валидация функциялары
-def validate_email(email):
-    pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
-    return re.match(pattern, email) is not None
-
-def validate_price(price):
-    return isinstance(price, (int, float)) and price > 0
-
-def validate_required(value, field_name):
-    if not value or str(value).strip() == '':
-        print(f"Қате: {field_name} міндетті өріс!")
-        return False
-    return True
-
-# Құпия сөзді хэштеу
-def hash_password(password):
-    return hashlib.sha256(password.encode()).hexdigest()
-
-# Пайдаланушы қосу (валидациямен)
-def add_user(username, email, password):
-    if not validate_required(username, "username"):
-        return False
-    if not validate_required(email, "email"):
-        return False
-    if not validate_email(email):
-        print("Қате: Email форматы дұрыс емес!")
-        return False
-    if len(password) < 6:
-        print("Қате: Құпия сөз 6 символдан кем болмауы керек!")
-        return False
+# ТІРКЕЛУ
+@app.route('/register', methods=['POST'])
+def register():
+    data = request.get_json()
+    username = data.get('username', '')
+    email = data.get('email', '')
+    password = data.get('password', '')
     
-    hashed = hash_password(password)
+    if not username or not email or not password:
+        return jsonify({'error': 'Барлық өрістер міндетті!'}), 400
+    if not validate_email(email):
+        return jsonify({'error': 'Email форматы дұрыс емес!'}), 400
+    if len(password) < 6:
+        return jsonify({'error': 'Құпия сөз 6 символдан кем болмауы керек!'}), 400
+    
     try:
         conn = get_db()
         cursor = conn.cursor()
         cursor.execute('INSERT INTO users (username, email, password) VALUES (?, ?, ?)',
-                      (username, email, hashed))
+                      (username, email, hash_password(password)))
         conn.commit()
         conn.close()
-        print(f"Пайдаланушы қосылды: {username}")
-        return True
+        return jsonify({'message': f'Тіркелу сәтті: {username}'}), 201
     except sqlite3.IntegrityError:
-        print("Қате: Бұл email тіркелген!")
-        return False
+        return jsonify({'error': 'Бұл email тіркелген!'}), 400
 
-# Тағам қосу (валидациямен)
-def add_menu_item(name, description, price, category):
-    if not validate_required(name, "name"):
-        return False
-    if not validate_price(price):
-        print("Қате: Баға оң сан болуы керек!")
-        return False
+# КІРУ
+@app.route('/login', methods=['POST'])
+def login():
+    data = request.get_json()
+    email = data.get('email', '')
+    password = data.get('password', '')
+    
+    conn = get_db()
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM users WHERE email = ? AND password = ?',
+                  (email, hash_password(password)))
+    user = cursor.fetchone()
+    conn.close()
+    
+    if user:
+        return jsonify({'message': f'Қош келдің, {user["username"]}!'}), 200
+    return jsonify({'error': 'Email немесе құпия сөз дұрыс емес!'}), 401
+
+# МӘЗІР - барлығын алу
+@app.route('/menu', methods=['GET'])
+def get_menu():
+    category = request.args.get('category', '')
+    conn = get_db()
+    cursor = conn.cursor()
+    if category:
+        cursor.execute('SELECT * FROM menu_items WHERE category = ?', (category,))
+    else:
+        cursor.execute('SELECT * FROM menu_items')
+    items = cursor.fetchall()
+    conn.close()
+    return jsonify([dict(item) for item in items])
+
+# МӘЗІР - қосу
+@app.route('/menu', methods=['POST'])
+def add_menu():
+    data = request.get_json()
+    name = data.get('name', '')
+    price = data.get('price', 0)
+    category = data.get('category', '')
+    description = data.get('description', '')
+    
+    if not name or not category:
+        return jsonify({'error': 'Атау және санат міндетті!'}), 400
+    if price <= 0:
+        return jsonify({'error': 'Баға оң сан болуы керек!'}), 400
     
     conn = get_db()
     cursor = conn.cursor()
@@ -93,40 +133,27 @@ def add_menu_item(name, description, price, category):
                    (name, description, price, category))
     conn.commit()
     conn.close()
-    print(f"Тағам қосылды: {name}")
-    return True
+    return jsonify({'message': f'Тағам қосылды: {name}'}), 201
 
-def get_all_menu_items():
+# ТАПСЫРЫС беру
+@app.route('/orders', methods=['POST'])
+def add_order():
+    data = request.get_json()
+    user_id = data.get('user_id')
+    menu_item_id = data.get('menu_item_id')
+    quantity = data.get('quantity', 1)
+    
+    if not user_id or not menu_item_id:
+        return jsonify({'error': 'user_id және menu_item_id міндетті!'}), 400
+    
     conn = get_db()
     cursor = conn.cursor()
-    cursor.execute('SELECT * FROM menu_items')
-    items = cursor.fetchall()
+    cursor.execute('INSERT INTO orders (user_id, menu_item_id, quantity) VALUES (?, ?, ?)',
+                   (user_id, menu_item_id, quantity))
+    conn.commit()
     conn.close()
-    return items
+    return jsonify({'message': 'Тапсырыс қабылданды!'}), 201
 
-# Тест
-init_db()
-
-print("=== Валидация тесті ===")
-print("\n1. Дұрыс пайдаланушы:")
-add_user("Damila", "damila@gmail.com", "secret123")
-
-print("\n2. Қате email:")
-add_user("Aizhan", "qate-email", "pass123")
-
-print("\n3. Қысқа құпия сөз:")
-add_user("Aizhan", "aizhan@gmail.com", "123")
-
-print("\n4. Дұрыс тағам:")
-add_menu_item("Бешбармақ", "Дәстүрлі тағам", 2500, "Негізгі")
-
-print("\n5. Теріс баға:")
-add_menu_item("Плов", "Өзбек плові", -100, "Негізгі")
-
-print("\n6. Бос атау:")
-add_menu_item("", "Сипаттама", 1000, "Негізгі")
-
-print("\n=== Тағамдар тізімі ===")
-items = get_all_menu_items()
-for item in items:
-    print(f"{item['id']}. {item['name']} - {item['price']} ₸")
+if __name__ == '__main__':
+    init_db()
+    app.run(debug=True)
