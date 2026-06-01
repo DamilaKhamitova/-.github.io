@@ -1,4 +1,6 @@
 import sqlite3
+import re
+import hashlib
 
 DB_PATH = '../database/damaq.db'
 
@@ -32,8 +34,59 @@ def init_db():
     conn.commit()
     conn.close()
 
-# CREATE - қосу
+# Валидация функциялары
+def validate_email(email):
+    pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+    return re.match(pattern, email) is not None
+
+def validate_price(price):
+    return isinstance(price, (int, float)) and price > 0
+
+def validate_required(value, field_name):
+    if not value or str(value).strip() == '':
+        print(f"Қате: {field_name} міндетті өріс!")
+        return False
+    return True
+
+# Құпия сөзді хэштеу
+def hash_password(password):
+    return hashlib.sha256(password.encode()).hexdigest()
+
+# Пайдаланушы қосу (валидациямен)
+def add_user(username, email, password):
+    if not validate_required(username, "username"):
+        return False
+    if not validate_required(email, "email"):
+        return False
+    if not validate_email(email):
+        print("Қате: Email форматы дұрыс емес!")
+        return False
+    if len(password) < 6:
+        print("Қате: Құпия сөз 6 символдан кем болмауы керек!")
+        return False
+    
+    hashed = hash_password(password)
+    try:
+        conn = get_db()
+        cursor = conn.cursor()
+        cursor.execute('INSERT INTO users (username, email, password) VALUES (?, ?, ?)',
+                      (username, email, hashed))
+        conn.commit()
+        conn.close()
+        print(f"Пайдаланушы қосылды: {username}")
+        return True
+    except sqlite3.IntegrityError:
+        print("Қате: Бұл email тіркелген!")
+        return False
+
+# Тағам қосу (валидациямен)
 def add_menu_item(name, description, price, category):
+    if not validate_required(name, "name"):
+        return False
+    if not validate_price(price):
+        print("Қате: Баға оң сан болуы керек!")
+        return False
+    
     conn = get_db()
     cursor = conn.cursor()
     cursor.execute('INSERT INTO menu_items (name, description, price, category) VALUES (?, ?, ?, ?)',
@@ -41,8 +94,8 @@ def add_menu_item(name, description, price, category):
     conn.commit()
     conn.close()
     print(f"Тағам қосылды: {name}")
+    return True
 
-# READ - оқу
 def get_all_menu_items():
     conn = get_db()
     cursor = conn.cursor()
@@ -51,42 +104,29 @@ def get_all_menu_items():
     conn.close()
     return items
 
-# UPDATE - жаңарту
-def update_menu_item(id, price):
-    conn = get_db()
-    cursor = conn.cursor()
-    cursor.execute('UPDATE menu_items SET price = ? WHERE id = ?', (price, id))
-    conn.commit()
-    conn.close()
-    print(f"Баға жаңартылды!")
-
-# DELETE - өшіру
-def delete_menu_item(id):
-    conn = get_db()
-    cursor = conn.cursor()
-    cursor.execute('DELETE FROM menu_items WHERE id = ?', (id,))
-    conn.commit()
-    conn.close()
-    print(f"Тағам өшірілді!")
-
 # Тест
 init_db()
-add_menu_item("Бешбармақ", "Дәстүрлі қазақ тағамы", 2500, "Негізгі тағам")
-add_menu_item("Плов", "Өзбек плові", 1800, "Негізгі тағам")
-add_menu_item("Цезарь салаты", "Тауық еті, пармезан", 1200, "Салат")
 
-print("\n--- Барлық тағамдар ---")
-items = get_all_menu_items()
-for item in items:
-    print(f"{item['id']}. {item['name']} - {item['price']} ₸")
+print("=== Валидация тесті ===")
+print("\n1. Дұрыс пайдаланушы:")
+add_user("Damila", "damila@gmail.com", "secret123")
 
-update_menu_item(1, 2800)
-print("\nБешбармақ бағасы жаңартылды: 2800 ₸")
+print("\n2. Қате email:")
+add_user("Aizhan", "qate-email", "pass123")
 
-delete_menu_item(3)
-print("Цезарь салаты өшірілді")
+print("\n3. Қысқа құпия сөз:")
+add_user("Aizhan", "aizhan@gmail.com", "123")
 
-print("\n--- Жаңартылған тізім ---")
+print("\n4. Дұрыс тағам:")
+add_menu_item("Бешбармақ", "Дәстүрлі тағам", 2500, "Негізгі")
+
+print("\n5. Теріс баға:")
+add_menu_item("Плов", "Өзбек плові", -100, "Негізгі")
+
+print("\n6. Бос атау:")
+add_menu_item("", "Сипаттама", 1000, "Негізгі")
+
+print("\n=== Тағамдар тізімі ===")
 items = get_all_menu_items()
 for item in items:
     print(f"{item['id']}. {item['name']} - {item['price']} ₸")
