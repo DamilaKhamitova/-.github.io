@@ -2,22 +2,24 @@
 <html lang="kk">
 <head>
   <meta charset="UTF-8">
-  <title>DAMAQ Restaurant</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DAMAQ — Мейрамханалар Әлемі</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      font-family: 'Arial', sans-serif;
+      font-family: 'Segoe UI', Arial, sans-serif;
       background-color: #1a0a00;
       color: #fff;
+      scroll-behavior: smooth;
     }
     header {
       background: linear-gradient(135deg, #8B0000, #ff6600);
       text-align: center;
-      padding: 40px 20px;
+      padding: 50px 20px;
     }
     header h1 {
-      font-size: 60px;
-      letter-spacing: 10px;
+      font-size: 55px;
+      letter-spacing: 6px;
       color: #FFD700;
       text-shadow: 3px 3px 10px #000;
     }
@@ -33,26 +35,100 @@
       position: sticky;
       top: 0;
       z-index: 100;
+      border-bottom: 2px solid #ff6600;
     }
     nav a {
       color: #FFD700;
-      margin: 0 20px;
+      margin: 0 15px;
       text-decoration: none;
       font-size: 16px;
       font-weight: bold;
     }
     nav a:hover { color: #ff6600; }
+    
     .hero {
       text-align: center;
-      padding: 40px 20px;
+      padding: 30px 20px;
       background: #2c0a00;
-      font-size: 22px;
+      font-size: 20px;
       color: #ff9933;
+      font-weight: bold;
     }
+
+    /* 🌟 КРЕАТИВТІ: РЕСТОРАН ТАНДАУ СЕКЦИЯСЫ */
+    .restaurant-selection {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 0 20px;
+      text-align: center;
+    }
+    .restaurant-selection h2 {
+      color: #FFD700;
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+    .restaurant-selection p {
+      color: #aaa;
+      margin-bottom: 30px;
+    }
+    .restaurant-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+    }
+    .restaurant-card {
+      background: #2c1500;
+      border: 2px solid #ff6600;
+      border-radius: 15px;
+      padding: 30px 20px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .restaurant-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 10px 20px rgba(255, 102, 0, 0.3);
+      background: #3d1f05;
+    }
+    .restaurant-card .icon {
+      font-size: 45px;
+      margin-bottom: 15px;
+    }
+    .restaurant-card h3 {
+      color: #FFD700;
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
+    .restaurant-card p {
+      font-size: 14px;
+      color: #ccc;
+      margin: 0;
+    }
+    .restaurant-card .badge {
+      display: inline-block;
+      margin-top: 15px;
+      background: #8B0000;
+      color: #fff;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    /* 🍽️ МӘЗІР КОНТЕЙНЕРІ (ӘДЕМІ АНИМАЦИЯМЕН АШЫЛАДЫ) */
     .menu-container {
       max-width: 900px;
       margin: 30px auto;
       padding: 0 20px;
+      display: none; /* Басында жабық тұрады, ресторан таңдағанда ашылады */
+    }
+    .active-restaurant-title {
+      text-align: center;
+      color: #FFD700;
+      font-size: 36px;
+      margin-bottom: 25px;
+      text-transform: uppercase;
+      border-bottom: 2px dashed #ff6600;
+      padding-bottom: 10px;
     }
     .menu-section {
       background: #2c1500;
@@ -86,13 +162,68 @@
       color: #aaa;
       margin-top: 4px;
     }
+    .price-action {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
     .price {
       font-size: 18px;
       font-weight: bold;
       color: #FFD700;
-      margin-left: 20px;
     }
-    .contact-box {
+    .btn-add {
+      background: #ff6600;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 14px;
+    }
+    .btn-add:hover { background: #8B0000; }
+
+    /* 🛒 ИНТЕРАКТИВТІ СЕБЕТ (КОРЗИНА) */
+    .cart-section {
+      max-width: 900px;
+      margin: 30px auto;
+      padding: 25px;
+      background: #261100;
+      border-radius: 15px;
+      border: 2px dashed #FFD700;
+    }
+    .cart-section h2 {
+      color: #FFD700;
+      margin-bottom: 15px;
+      display: flex;
+      justify-content: space-between;
+    }
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid #442200;
+    }
+    .cart-controls button {
+      background: #3d1a00;
+      color: white;
+      border: 1px solid #ff6600;
+      padding: 2px 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .total-price {
+      text-align: right;
+      font-size: 22px;
+      color: #FFD700;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    /* БАЙЛАНЫС ЖӘНЕ ТАПСЫРЫС */
+    .contact-box, .order-box {
       max-width: 900px;
       margin: 30px auto;
       padding: 40px;
@@ -101,7 +232,7 @@
       border: 1px solid #ff6600;
       text-align: center;
     }
-    .contact-box h2 {
+    .contact-box h2, .order-box h2 {
       color: #FFD700;
       font-size: 28px;
       margin-bottom: 20px;
@@ -111,21 +242,7 @@
       color: #ffe0b2;
       margin: 10px 0;
     }
-    .order-box {
-      max-width: 900px;
-      margin: 30px auto;
-      padding: 40px;
-      background: #2c1500;
-      border-radius: 15px;
-      border: 1px solid #ff6600;
-      text-align: center;
-    }
-    .order-box h2 {
-      color: #FFD700;
-      font-size: 28px;
-      margin-bottom: 20px;
-    }
-    .order-box input, .order-box textarea, .order-box select {
+    .order-box input, .order-box textarea {
       width: 100%;
       padding: 12px;
       margin: 10px 0;
@@ -147,11 +264,8 @@
       margin-top: 15px;
     }
     .order-box button:hover { opacity: 0.9; }
-    .orders-list {
-      max-width: 900px;
-      margin: 20px auto;
-      padding: 0 20px;
-    }
+    
+    .orders-list { max-width: 900px; margin: 20px auto; padding: 0 20px; }
     .order-card {
       background: #2c1500;
       border: 1px solid #ff6600;
@@ -161,156 +275,372 @@
       text-align: left;
     }
     .order-card p { color: #ffe0b2; margin: 4px 0; }
+    
     footer {
       text-align: center;
       padding: 30px;
       background: #2c0a00;
       color: #ff9933;
       margin-top: 40px;
+      border-top: 2px solid #ff6600;
     }
   </style>
 </head>
 <body>
 
 <header id="home">
-  <h1>🍽️ DAMAQ</h1>
-  <p>Дәстүрлі қазақ және шығыс тағамдары</p>
-  <p>📍 Алматы қ. | ☎️ +7 700 000 0000 | ⏰ 10:00 - 23:00</p>
+  <h1>🍽️ DAMAQ FOOD COURT</h1>
+  <p>Бір жерде — Ең үздік 3 түрлі мейрамхана мәзірі!</p>
+  <p>📍 Алматы қ. | ⏰ Жұмыс уақыты: 10:00 - 23:00</p>
 </header>
 
 <nav>
   <a href="#home">🏠 Басты бет</a>
-  <a href="#menu">🍽️ Мәзір</a>
+  <a href="#restaurants">🏢 Ресторандар</a>
+  <a href="#menu-anchor" id="nav-menu-link" style="display:none;">🍽️ Ағымдағы Мәзір</a>
   <a href="#contact">📞 Байланыс</a>
-  <a href="#order">📋 Тапсырыс</a>
+  <a href="#order">📋 Себет және Тапсырыс</a>
 </nav>
 
 <div class="hero">
-  ✨ Үздік тағамдар, жылы қызмет, керемет дәм ✨
+  ✨ Алдымен сүйікті рестораныңызды таңдаңыз, содан кейін эксклюзивті мәзір ашылады! ✨
 </div>
 
+<!-- 🏢 1-ҚАДАМ: РЕСТОРАН ТАНДАУ СЕКЦИЯСЫ -->
+<div class="restaurant-selection" id="restaurants">
+  <h2>Таңдаулы Мейрамханалар</h2>
+  <p>Қандай асхананың тағамын жегіңіз келеді? Төменнен біреуін басыңыз:</p>
+  
+  <div class="restaurant-grid">
+    <!-- 1. Қазақ & Шығыс -->
+    <div class="restaurant-card" onclick="selectRestaurant('damaq')">
+      <div class="icon">🥩</div>
+      <h3>DAMAQ ұлттық астары</h3>
+      <p>Бешбармақ, қуырдақ, шығыс палауы және ең дәмді ұлттық сусындар мен бауырсақтар.</p>
+      <span class="badge">Қазақ & Шығыс тағамдары</span>
+    </div>
+
+    <!-- 2. Итальяндық -->
+    <div class="restaurant-card" onclick="selectRestaurant('pronto')">
+      <div class="icon">🍕</div>
+      <h3>Pronto Пиццерия</h3>
+      <p>Нағыз итальяндық жұқа қамырдағы пиццалар, талғампаз пасталар мен жеңіл еуропалық салаттар.</p>
+      <span class="badge">Итальяндық мәзір</span>
+    </div>
+
+    <!-- 3. FastFood -->
+    <div class="restaurant-card" onclick="selectRestaurant('burger')">
+      <div class="icon">🍔</div>
+      <h3>Burger House</h3>
+      <p>Шырынды бургерлер, қытырлақ фри картобы, тауық қанаттары мен салқын сергітетін лимонадтар.</p>
+      <span class="badge">Фастфуд & Снэктер</span>
+    </div>
+  </div>
+</div>
+
+<div id="menu-anchor"></div>
+
+<!-- 🍽️ 2-ҚАДАМ: ДИНАМИКАЛЫҚ МӘЗІР (БАСЫНДА ЖАБЫҚ, ЖАВАБЕН БАСҚАНДА АШЫЛАДЫ) -->
 <div class="menu-container" id="menu">
-
-  <div class="menu-section">
-    <h2>🥗 Салаттар</h2>
-    <div class="item"><div class="item-info"><div class="item-name">Цезарь салаты</div><div class="item-desc">Тауық еті, пармезан, сухарики, цезарь соусы</div></div><span class="price">1 200 ₸</span></div>
-    <div class="item"><div class="item-info"><div class="item-name">Грек салаты</div><div class="item-desc">Қияр, помидор, зәйтүн, фета ірімшігі</div></div><span class="price">1 000 ₸</span></div>
-    <div class="item"><div class="item-info"><div class="item-name">Шопан салаты</div><div class="item-desc">Жаңа көкөністер, зәйтүн майы</div></div><span class="price">900 ₸</span></div>
-    <div class="item"><div class="item-info"><div class="item-name">Оливье салаты</div><div class="item-desc">Картоп, жұмыртқа, жасымық, майонез</div></div><span class="price">800 ₸</span></div>
-    <div class="item"><div class="item-info"><div class="item-name">Тұна балық салаты</div><div class="item-desc">Тұна, помидор, жасыл салат, лимон</div></div><span class="price">1 400 ₸</span></div>
-    <div class="item"><div class="item-info"><div class="item-name">Корейлік сәбіз салаты</div><div class="item-desc">Корейше маринадталған сәбіз, сарымсақ</div></div><span class="price">700 ₸</span></div>
-    <div class="item"><div class="item-info"><div class="item-name">Авокадо салаты</div><div class="item-desc">Авокадо, креветка, лимон шырыны</div></div><span class="price">1 600 ₸</span></div>
+  <h2 class="active-restaurant-title" id="restNameTitle">Мәзір</h2>
+  <div id="menuEntries">
+    <!-- Мәзір элементтері JavaScript арқылы осы жерге автоматты түрде салынады -->
   </div>
-
-  <div class="menu-section">
-    <h2>🍵 Сорпалар</h2>
-    <div class="item"><div class="item-info"><div class="item-name">Қазақша сорпа</div><div class="item-desc">Қой еті, картоп, пияз</div></div><span class="price">800 ₸</span></div>
-    <div class="item"><div class="item-info"><div class="item-name">Борщ</div><div class="item-desc">Қызылша, қырыққабат, сиыр еті, қаймақ</div></div><span class="price">900 ₸</span></div>
-    <div class="item"><div class="item-info"><div class="item-name">Томат сорпасы</div><div class="item-desc">Жаңа томат, базилик, крем</div></div><span class="price">750 ₸</span></div>
-    <div class="item"><div class="item-info"><div class="item-name">Харчо</div><div class="item-desc">Грузин сорпасы, сиыр еті, күріш, дәмдеуіштер</div></div><span class="price">950 ₸</span></div>
-  </div>
-
-  <div class="menu-section">
-    <h2>🍲 Негізгі тағамдар</h2>
-    <div class="item"><div class="item-info"><div class="item-name">Бешбармақ</div><div class="item-desc">Дәстүрлі қазақ тағамы, қой еті, жайма</div></div><span class="price">2 500 ₸</span></div>
-    <div class="item"><div class="item-info"><div class="item-name">Плов</div><div class="item-desc">Өзбек плові, сәбіз, мал еті</div></div><span class="price">1 800 ₸</span></div>
-    <div class="item"><div class="item-info"><div class="item-name">Манты</div><div class="item-desc">Қол манты, қой еті, пияз</div></div><span class="price">1 500 ₸</span></div>
-    <div class="item"><div class="item-info"><div class="item-name">Лагман</div><div class="item-desc">Үй кеспесі, көкөніс, сиыр еті</div></div><span class="price">1 600 ₸</span></div>
-    <div class="item"><div class="item-info"><div class="item-name">Қуырдақ</div><div class="item-desc">Қой іші-қарны, пияз, картоп</div></div><span class="price">2 000 ₸</span></div>
-    <div class="item"><div class="item-info"><div class="item-name">Самса</div><div class="item-desc">Пісіріп піскен, қой еті, пияз</div></div><span class="price">400 ₸</span></div>
-    <div class="item"><div class="item-info"><div class="item-name">Долма</div><div class="item-desc">Жүзім жапырағы, күріш, ет</div></div><span class="price">1 700 ₸</span></div>
-    <div class="item"><div class="item-info"><div class="item-name">Котлет картоп гарнирімен</div><div class="item-desc">Сиыр еті котлеті, пюре картоп</div></div><span class="price">1 400 ₸</span></div>
-  </div>
-
-  <div class="menu-section">
-    <h2>🍖 Грильден</h2>
-    <div class="item"><div class="item-info"><div class="item-name">Қой қабырғасы</div><div class="item-desc">Грильде піскен, шөппен маринадталған</div></div><span class="price">3 500 ₸</span></div>
-    <div class="item"><div class="item-info"><div class="item-name">Тауық шашлык</div><div class="item-desc">Йогурт маринады, көкөніс гарниры</div></div><span class="price">2 000 ₸</span></div>
-    <div class="item"><div class="item-info"><div class="item-name">Сиыр еті стейк</div><div class="item-desc">Medium rare, сарымсақ майы</div></div><span class="price">4 500 ₸</span></div>
-    <div class="item"><div class="item-info"><div class="item-name">Балық гриль</div><div class="item-desc">Форель, лимон, шөп</div></div><span class="price">3 000 ₸</span></div>
-    <div class="item"><div class="item-info"><div class="item-name">Қанаттар (wings)</div><div class="item-desc">Тауық қанаты, BBQ соусы</div></div><span class="price">1 800 ₸</span></div>
-  </div>
-
-  <div class="menu-section">
-    <h2>🍰 Десерттер</h2>
-    <div class="item"><div class="item-info"><div class="item-name">Чак-чак</div><div class="item-desc">Дәстүрлі татар тәттісі, бал</div></div><span class="price">600 ₸</span></div>
-    <div class="item"><div class="item-info"><div class="item-name">Баурсак</div><div class="item-desc">Үй баурсағы, қаймақ немесе бал</div></div><span class="price">500 ₸</span></div>
-    <div class="item"><div class="item-info"><div class="item-name">Шоколадты торт</div><div class="item-desc">Бельгия шоколады, кілегей</div></div><span class="price">900 ₸</span></div>
-    <div class="item"><div class="item-info"><div class="item-name">Тирамису</div><div class="item-desc">Итальян десерті, маскарпоне</div></div><span class="price">1 100 ₸</span></div>
-  </div>
-
-  <div class="menu-section">
-    <h2>🥤 Сусындар</h2>
-    <div class="item"><div class="item-info"><div class="item-name">Қымыз</div><div class="item-desc">Табиғи биенің сүті</div></div><span class="price">500 ₸</span></div>
-    <div class="item"><div class="item-info"><div class="item-name">Шұбат</div><div class="item-desc">Түйе сүті, пайдалы және дәмді</div></div><span class="price">600 ₸</span></div>
-    <div class="item"><div class="item-info"><div class="item-name">Шай (шәйнек)</div><div class="item-desc">Қара немесе жасыл шай</div></div><span class="price">400 ₸</span></div>
-    <div class="item"><div class="item-info"><div class="item-name">Жаңа апельсин шырыны</div><div class="item-desc">100% табиғи, қантсыз</div></div><span class="price">700 ₸</span></div>
-    <div class="item"><div class="item-info"><div class="item-name">Лимонад</div><div class="item-desc">Лимон, жалбыз, газды су</div></div><span class="price">650 ₸</span></div>
-    <div class="item"><div class="item-info"><div class="item-name">Қара кофе</div><div class="item-desc">Эспрессо, американо немесе капучино</div></div><span class="price">500 ₸</span></div>
-    <div class="item"><div class="item-info"><div class="item-name">Айран</div><div class="item-desc">Үй айраны, сергітуші</div></div><span class="price">350 ₸</span></div>
-  </div>
-
 </div>
 
+<!-- 🛒 3-ҚАДАМ: ИНТЕРАКТИВТІ СЕБЕТ (САМ ОД КӨБЕЙТЕДІ, ЕСЕПТЕЙДІ) -->
+<div class="cart-section" id="cartSection" style="display: none;">
+  <h2><span>🛒 Сіздің себетіңіз</span> <span id="cartCount" style="font-size:16px; color:#aaa;">(0 тағам)</span></h2>
+  <div id="cartItemsContainer">
+    <p style="color:#aaa; font-style:italic;" id="emptyCartText">Себет бос. Төмендегі мәзірден тағам қосыңыз.</p>
+  </div>
+  <div class="total-price">Жалпы сомасы: <span id="totalSum">0</span> ₸</div>
+</div>
+
+<!-- 📞 БАЙЛАНЫС СЕКЦИЯСЫ -->
 <div class="contact-box" id="contact">
-  <h2>📞 Байланыс</h2>
-  <p>📍 Мекенжай: Алматы қ., Абай даңғылы 1</p>
-  <p>☎️ Телефон: +7 700 000 0000</p>
-  <p>📱 WhatsApp: +7 700 000 0000</p>
-  <p>⏰ Жұмыс уақыты: 10:00 - 23:00</p>
-  <p>📧 Email: info@damaq.kz</p>
+  <h2>📞 Байланыс & Мекенжай</h2>
+  <p>📍 Мекенжай: Алматы қ., Абай даңғылы, 1-ғимарат (Food Court орталығы)</p>
+  <p>☎️ Бірыңғай Call-center: +7 700 888 9999</p>
+  <p>⏰ Жұмыс уақыты: Күнделікті 10:00 - 23:00</p>
+  <p>📧 Email: support@damaqcourt.kz</p>
 </div>
 
+<!-- 📋 ТАПСЫРЫС БЕРУ ФОРМАСЫ -->
 <div class="order-box" id="order">
-  <h2>📋 Тапсырыс беру</h2>
-  <input type="text" id="nameInput" placeholder="Атыңыз" />
-  <input type="tel" id="phoneInput" placeholder="Телефон нөміріңіз" />
-  <select id="foodSelect">
-    <option>Тағам таңдаңыз...</option>
-    <option>Бешбармақ - 2 500 ₸</option>
-    <option>Плов - 1 800 ₸</option>
-    <option>Манты - 1 500 ₸</option>
-    <option>Лагман - 1 600 ₸</option>
-    <option>Цезарь салаты - 1 200 ₸</option>
-    <option>Қуырдақ - 2 000 ₸</option>
-    <option>Тауық шашлык - 2 000 ₸</option>
-    <option>Сиыр еті стейк - 4 500 ₸</option>
-  </select>
-  <textarea id="noteInput" placeholder="Қосымша тілектер..." rows="3"></textarea>
-  <div id="success" style="display:none; background:#ff6600; color:#fff; padding:20px; border-radius:10px; margin-top:15px; font-size:18px;">
-    ✅ Тапсырысыңыз қабылданды! Жақын арада байланысамыз. 🍽️
+  <h2>📋 Тапсырысты рәсімдеу</h2>
+  <p style="color: #ffe0b2; margin-bottom: 15px;">Жоғарыдағы себетке тағамдар қосқан соң, деректеріңізді енгізіп тапсырысты растаңыз.</p>
+  <input type="text" id="nameInput" placeholder="Аты-жөніңізді жазыңыз" />
+  <input type="tel" id="phoneInput" placeholder="Телефон нөміріңіз (+7...)" />
+  <textarea id="noteInput" placeholder="Жеткізу мекенжайы немесе мейрамханаға қосымша ескертпелер..." rows="3"></textarea>
+  
+  <div id="success" style="display:none; background: linear-gradient(135deg, #006400, #22c55e); color:#fff; padding:20px; border-radius:10px; margin-top:15px; font-size:18px; font-weight:bold; text-shadow: 1px 1px 2px #000;">
+    ✅ Керемет! Тапсырысыңыз сәтті қабылданды! Аспаздар іске кірісті. 🛎️
   </div>
-  <button onclick="submitOrder()">🛎️ Тапсырыс беру</button>
+  <button onclick="submitOrder()">🛎️ Тапсырысты Жіберу</button>
 </div>
 
+<!-- ҚАБЫЛДАНҒАН ТАПСЫРЫСТАР ТІЗІМІ -->
 <div class="orders-list" id="ordersList"></div>
 
 <footer>
-  <p>🍽️ DAMAQ Restaurant ©️ 2025</p>
-  <p>Дәмді тағам — бақытты өмір!</p>
+  <p>🍽️ DAMAQ Food Court Жүйесі ©️ 2026</p>
+  <p>Мұғалімді таңғалдыруға арналған креативті бағдарламалық жоба.</p>
 </footer>
 
 <script>
-  var orders = [];
-  function submitOrder() {
-    var name = document.getElementById('nameInput').value;
-    var phone = document.getElementById('phoneInput').value;
-    var food = document.getElementById('foodSelect').value;
-    var note = document.getElementById('noteInput').value;
-    if (!name || !phone || food === 'Тағам таңдаңыз...') {
-      alert('Барлық өрісті толтырыңыз!');
+  // 📊 БАРЛЫҚ РЕСТОРАНДАРДЫҢ МӘЛІМЕТТЕР БАЗАСЫ (ДАТА-БАЗА)
+  const database = {
+    damaq: {
+      title: "DAMAQ Ұлттық Тағамдары",
+      sections: [
+        {
+          name: "🍲 Басты тағамдар",
+          items: [
+            { name: "Бешбармақ (Қой етімен)", desc: "Дәстүрлі қазақ тағамы, қолдың жаймасы, сорпасымен", price: 2500 },
+            { name: "Мерекелік Палау", desc: "Өзбек күріші, шырынды сиыр еті, бөдене жұмыртқасы", price: 1800 },
+            { name: "Сыйлы Манты (5 дана)", desc: "Ірі туралған ет пен пияз, жұқа қамыр", price: 1500 },
+            { name: "Қазан Қуырдақ", desc: "Жас қой еті мен бауыр, картоп, пиязбен қуырылған", price: 2000 }
+          ]
+        },
+        {
+          name: "🥤 Сусындар мен Тәттілер",
+          items: [
+            { name: "Шипалы Қымыз (1л)", desc: "Табиғи, ашытылған бие сүті", price: 1200 },
+            { name: "Бал Бауырсақтар (себет)", desc: "Ыстық, үлпілдек үй бауырсақтары", price: 500 },
+            { name: "Шәйнек Шай", desc: "Сүт қосқан қазақша қара шай немесе лимонды жасыл шай", price: 400 }
+          ]
+        }
+      ]
+    },
+    pronto: {
+      title: "Pronto Итальяндық Мейрамханасы",
+      sections: [
+        {
+          name: "🍕 Итальяндық Пиццалар",
+          items: [
+            { name: "Маргарита Пиццасы", desc: "Моцарелла ірімшігі, жаңа томаттар, базилик, зәйтүн майы", price: 2200 },
+            { name: "Пепперони Пиццасы", desc: "Ащы итальян шұжықтары, көп мөлшердегі ірімшік", price: 2700 },
+            { name: "Төрт Ірімшік (4 Formaggi)", desc: "Дорблю, пармезан, моцарелла, чеддер үйлесімі", price: 3100 }
+          ]
+        },
+        {
+          name: "🍝 Пасталар мен Салаттар",
+          items: [
+            { name: "Паста Карбонара", desc: "Спагетти, бекон, жұмыртқа соусы, пармезан", price: 1900 },
+            { name: "Классикалық Цезарь", desc: "Тауық филесі, айсберг салаты, пармезан, фирменді соус", price: 1600 },
+            { name: "Итальяндық Тирамису", desc: "Маскарпоне кремі мен кофе сіңірілген савоярди печеньесі", price: 1100 }
+          ]
+        }
+      ]
+    },
+    burger: {
+      title: "Burger House Фастфуд",
+      sections: [
+        {
+          name: "🍔 Фирменді Бургерлер",
+          items: [
+            { name: "Шеф Бургер ХХL", desc: "Екі қабатты сиыр еті котлеті, чеддер, маринадталған қияр, BBQ", price: 1950 },
+            { name: "Чизбургер Классик", desc: "Шырынды котлет, еріген ірімшік, қызанақ, арнайы соус", price: 1200 },
+            { name: "Спид Чикен Бургер", desc: "Қытырлақ тауық еті, балғын салат жапырақтары, майонез", price: 1400 }
+          ]
+        },
+        {
+          name: "🍟 Снэктер мен Лимонадтар",
+          items: [
+            { name: "Картофель Фри (Үлкен)", desc: "Алтын түсті, қытырлақ фри картобы + кетчуп", price: 600 },
+            { name: "BBQ Тауық Қанаттары (6 дана)", desc: "Ащы-тәтті соустағы гриль қанаттары", price: 1300 },
+            { name: "Жалбызды Лимонад (0.5л)", desc: "Лимон, жалбыз, мұз, сергітетін газды сусын", price: 700 }
+          ]
+        }
+      ]
+    }
+  };
+
+  // 🛒 СЕБЕТТІҢ ЖАҒДАЙЫ (ГЛОБАЛДЫ МАС СИВ)
+  let cart = [];
+  let currentRestaurantKey = '';
+  let ordersHistory = [];
+
+  // 🏢 РЕСТОРАНДЫ ТАНДАҒАНДАҒЫ ФУНКЦИЯ
+  function selectRestaurant(key) {
+    // Егер басқа ресторан таңдалса және себетте зат болса ескерту жасау
+    if (cart.length > 0 && currentRestaurantKey !== key) {
+      let confirmClear = confirm("Басқа мейрамхана таңдасаңыз, себеттегі тағамдар өшіріледі. Растайсыз ба?");
+      if (!confirmClear) return;
+      cart = [];
+      updateCartUI();
+    }
+
+    currentRestaurantKey = key;
+    const resData = database[key];
+    
+    // Элементтерді көрсету
+    document.getElementById('menu').style.display = 'block';
+    document.getElementById('cartSection').style.display = 'block';
+    document.getElementById('nav-menu-link').style.display = 'inline-block';
+    
+    // Тақырыпты жаңарту
+    document.getElementById('restNameTitle').innerText = "🏢 " + resData.title + " Мәзірі";
+
+    // Мәзірді HTML қылып құрастыру
+    let menuHTML = "";
+    resData.sections.forEach(section => {
+      menuHTML += `<div class="menu-section">
+        <h2>${section.name}</h2>`;
+      
+      section.items.forEach(item => {
+        menuHTML += `<div class="item">
+          <div class="item-info">
+            <div class="item-name">${item.name}</div>
+            <div class="item-desc">${item.desc}</div>
+          </div>
+          <div class="price-action">
+            <span class="price">${item.price.toLocaleString()} ₸</span>
+            <button class="btn-add" onclick="addToCart('${item.name}', ${item.price})">➕ Қосу</button>
+          </div>
+        </div>`;
+      });
+
+      menuHTML += `</div>`;
+    });
+
+    document.getElementById('menuEntries').innerHTML = menuHTML;
+
+    // Скролл жасап мәзірге апару
+    document.getElementById('menu-anchor').scrollIntoView({ behavior: 'smooth' });
+  }
+
+  // 🛒 СЕБЕТКЕ ТАҒАМ ҚОСУ
+  function addToCart(name, price) {
+    let existingItem = cart.find(item => item.name === name);
+    if (existingItem) {
+      existingItem.quantity += 1;
+    } else {
+      cart.push({ name: name, price: price, quantity: 1 });
+    }
+    updateCartUI();
+  }
+
+  // СЕБЕТТЕГІ САНДЫ ӨЗГЕРТУ
+  function changeQuantity(name, delta) {
+    let item = cart.find(item => item.name === name);
+    if (item) {
+      item.quantity += delta;
+      if (item.quantity <= 0) {
+        cart = cart.filter(i => i.name !== name);
+      }
+    }
+    updateCartUI();
+  }
+
+  // 🔄 СЕБЕТТІ ЭКРАНҒА ЖАҢАРТЫП ШЫҒАРУ
+  function updateCartUI() {
+    const container = document.getElementById('cartItemsContainer');
+    const totalSumEl = document.getElementById('totalSum');
+    const cartCountEl = document.getElementById('cartCount');
+
+    if (cart.length === 0) {
+      container.innerHTML = `<p style="color:#aaa; font-style:italic;" id="emptyCartText">Себет бос. Төмендегі мәзірден тағам қосыңыз.</p>`;
+      totalSumEl.innerText = "0";
+      cartCountEl.innerText = "(0 тағам)";
       return;
     }
-    orders.push({ name, phone, food, note });
+
+    let itemsHTML = "";
+    let totalSum = 0;
+    let totalItemsCount = 0;
+
+    cart.forEach(item => {
+      let itemTotal = item.price * item.quantity;
+      totalSum += itemTotal;
+      totalItemsCount += item.quantity;
+
+      itemsHTML += `<div class="cart-item">
+        <div>
+          <span style="font-weight:bold; color:#FFD700;">${item.name}</span> 
+          <span style="color:#aaa; margin-left:10px;">(${item.price} ₸)</span>
+        </div>
+        <div class="cart-controls" style="display:flex; align-items:center; gap:10px;">
+          <button onclick="changeQuantity('${item.name}', -1)">-</button>
+          <span style="font-weight:bold; width:20px; text-align:center;">${item.quantity}</span>
+          <button onclick="changeQuantity('${item.name}', 1)">+</button>
+          <span style="font-weight:bold; color:#fff; min-width:70px; text-align:right;">${itemTotal.toLocaleString()} ₸</span>
+        </div>
+      </div>`;
+    });
+
+    container.innerHTML = itemsHTML;
+    totalSumEl.innerText = totalSum.toLocaleString();
+    cartCountEl.innerText = `(${totalItemsCount} тағам)`;
+  }
+
+  // 🛎️ ТАПСЫРЫСТЫ ТОЛЫҚТАЙ АЯҚТАУ СЕКЦИЯСЫ
+  function submitOrder() {
+    let name = document.getElementById('nameInput').value.trim();
+    let phone = document.getElementById('phoneInput').value.trim();
+    let note = document.getElementById('noteInput').value.trim();
+
+    if (cart.length === 0) {
+      alert('Тапсырыс беру үшін алдымен себетке тағам қосыңыз!');
+      return;
+    }
+    if (!name || !phone) {
+      alert('Өтініш, Атыңыз бен Телефон нөміріңізді толық енгізіңіз!');
+      return;
+    }
+
+    // Тапсырыс мәтінін құрастыру (чек)
+    let foodListText = cart.map(item => `${item.name} (x${item.quantity})`).join(', ');
+    let finalSum = document.getElementById('totalSum').innerText;
+    let restaurantName = database[currentRestaurantKey].title;
+
+    // Жаңа тапсырыс объектісін жасау
+    let newOrder = {
+      restaurant: restaurantName,
+      name: name,
+      phone: phone,
+      foods: foodListText,
+      sum: finalSum,
+      note: note || "Жоқ"
+    };
+
+    ordersHistory.push(newOrder);
+
+    // Сәттілік хабарламасын көрсету
     document.getElementById('success').style.display = 'block';
+    
+    // Формаларды тазалау
     document.getElementById('nameInput').value = '';
     document.getElementById('phoneInput').value = '';
-    document.getElementById('foodSelect').selectedIndex = 0;
     document.getElementById('noteInput').value = '';
-    var list = document.getElementById('ordersList');
-    list.innerHTML = '<h2 style="color:#FFD700; text-align:center; margin-bottom:15px;">📦 Қабылданған тапсырыстар</h2>';
-    orders.forEach(function(o, i) {
-      list.innerHTML += '<div class="order-card"><p>🔢 Тапсырыс #' + (i+1) + '</p><p>👤 Аты: ' + o.name + '</p><p>📞 Телефон: ' + o.phone + '</p><p>🍽️ Тағам: ' + o.food + '</p>' + (o.note ? '<p>📝 Ескертпе: ' + o.note + '</p>' : '') + '</div>';
+    
+    // Себетті босату
+    cart = [];
+    updateCartUI();
+
+    // 3 секундтан кейін сәттілік жазуын өшіру
+    setTimeout(() => {
+      document.getElementById('success').style.display = 'none';
+    }, 4000);
+
+    // Төмендегі Қабылданған тапсырыстар тізімін жаңарту
+    renderOrdersHistory();
+  }
+
+  // ТАПСЫРЫС ТАРИХЫН ЭКРАНҒА ШЫҒАРУ
+  function renderOrdersHistory() {
+    const list = document.getElementById('ordersList');
+    list.innerHTML = '<h2 style="color:#FFD700; text-align:center; margin: 30px 0 15px 0;">📦 Мониторинг: Қабылданған тапсырыстар (Админ панель)</h2>';
+    
+    ordersHistory.forEach((o, i) => {
+      list.innerHTML += `<div class="order-card" style="border-left: 5px solid #22c55e;">
+        <p><span style="color:#ff6600; font-weight:bold;">🔢 Тапсырыс #${i + 1}</span> | 🏢 Мейрамхана: <b>${o.restaurant}</b></p>
+        <p>👤 <b>Клиент:</b> ${o.name} | 📞 <b>Тел:</b> ${o.phone}</p>
+        <p>🍽️ <b>Тағамдар:</b> <span style="color:#FFD700;">${o.foods}</span></p>
+        <p>📝 <b>Жеткізу / Ескертпе:</b> ${o.note}</p>
+        <p style="text-align:right; font-weight:bold; color:#22c55e; font-size:18px;">Төленді: ${o.sum} ₸</p>
+      </div>`;
     });
   }
 </script>
