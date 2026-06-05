@@ -12,22 +12,67 @@
       color: #fff;
       scroll-behavior: smooth;
     }
+    
+    /* 🔐 АВТОРИЗАЦИЯ БЕТІ */
+    .auth-screen {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #1a0a00, #2c0a00);
+    }
+    .auth-box {
+      background: #2c1500;
+      border: 2px solid #ff6600;
+      padding: 40px;
+      border-radius: 15px;
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(255, 102, 0, 0.2);
+    }
+    .auth-box h2 { color: #FFD700; margin-bottom: 20px; font-size: 28px; }
+    .auth-box p { color: #ccc; font-size: 14px; margin-bottom: 20px; }
+    .auth-box input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      background: #1a0a00;
+      border: 1px solid #ff6600;
+      border-radius: 8px;
+      color: #fff;
+      font-size: 16px;
+    }
+    .auth-box button {
+      width: 100%;
+      background: linear-gradient(135deg, #8B0000, #ff6600);
+      color: #FFD700;
+      border: none;
+      padding: 12px;
+      font-size: 18px;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 15px;
+    }
+    .auth-box button:hover { opacity: 0.9; }
+
+    /* 🏢 НЕГІЗГІ САЙТТЫҢ СТИЛЬДЕРІ */
+    #main-app { display: none; } /* Басында жасырулы тұрады */
+
     header {
       background: linear-gradient(135deg, #8B0000, #ff6600);
       text-align: center;
-      padding: 50px 20px;
+      padding: 40px 20px;
     }
     header h1 {
-      font-size: 55px;
+      font-size: 45px;
       letter-spacing: 6px;
       color: #FFD700;
       text-shadow: 3px 3px 10px #000;
     }
-    header p {
-      font-size: 18px;
-      color: #ffe0b2;
-      margin-top: 10px;
-    }
+    header p { font-size: 18px; color: #ffe0b2; margin-top: 10px; }
+
     nav {
       background: #2c0a00;
       text-align: center;
@@ -36,46 +81,45 @@
       top: 0;
       z-index: 100;
       border-bottom: 2px solid #ff6600;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
     }
-    nav a {
+    nav a, nav button {
       color: #FFD700;
-      margin: 0 15px;
       text-decoration: none;
       font-size: 16px;
       font-weight: bold;
+      background: none;
+      border: none;
+      cursor: pointer;
     }
-    nav a:hover { color: #ff6600; }
-    
+    nav a:hover, nav button:hover { color: #ff6600; }
+    .user-badge { background: #8B0000; padding: 5px 10px; border-radius: 5px; font-size: 14px; }
+
+    /* Беттердің контейнері */
+    .page-section { display: none; padding: 40px 20px; }
+    .page-section.active { display: block; }
+
     .hero {
       text-align: center;
-      padding: 30px 20px;
-      background: #2c0a00;
-      font-size: 20px;
+      padding: 20px;
+      background: #2c1500;
+      border-radius: 10px;
+      max-width: 1000px;
+      margin: 0 auto 30px auto;
+      font-size: 18px;
       color: #ff9933;
       font-weight: bold;
+      border: 1px dashed #ff6600;
     }
 
-    /* 🌟 КРЕАТИВТІ: РЕСТОРАН ТАНДАУ СЕКЦИЯСЫ */
-    .restaurant-selection {
-      max-width: 1000px;
-      margin: 40px auto;
-      padding: 0 20px;
-      text-align: center;
-    }
-    .restaurant-selection h2 {
-      color: #FFD700;
-      font-size: 32px;
-      margin-bottom: 10px;
-    }
-    .restaurant-selection p {
-      color: #aaa;
-      margin-bottom: 30px;
-    }
-    .restaurant-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 25px;
-    }
+    /* 🏢 РЕСТОРАН ТАНДАУ СЕКЦИЯСЫ */
+    .restaurant-selection { max-width: 1000px; margin: 0 auto; text-align: center; }
+    .restaurant-selection h2 { color: #FFD700; font-size: 32px; margin-bottom: 10px; }
+    .restaurant-selection p { color: #aaa; margin-bottom: 30px; }
+    .restaurant-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
     .restaurant-card {
       background: #2c1500;
       border: 2px solid #ff6600;
@@ -89,20 +133,9 @@
       box-shadow: 0 10px 20px rgba(255, 102, 0, 0.3);
       background: #3d1f05;
     }
-    .restaurant-card .icon {
-      font-size: 45px;
-      margin-bottom: 15px;
-    }
-    .restaurant-card h3 {
-      color: #FFD700;
-      font-size: 22px;
-      margin-bottom: 10px;
-    }
-    .restaurant-card p {
-      font-size: 14px;
-      color: #ccc;
-      margin: 0;
-    }
+    .restaurant-card .icon { font-size: 45px; margin-bottom: 15px; }
+    .restaurant-card h3 { color: #FFD700; font-size: 22px; margin-bottom: 10px; }
+    .restaurant-card p { font-size: 14px; color: #ccc; margin: 0; }
     .restaurant-card .badge {
       display: inline-block;
       margin-top: 15px;
@@ -114,282 +147,211 @@
       font-weight: bold;
     }
 
-    /* 🍽️ МӘЗІР КОНТЕЙНЕРІ (ӘДЕМІ АНИМАЦИЯМЕН АШЫЛАДЫ) */
-    .menu-container {
+    /* 🔍 ИЗДЕУ ПАНЕЛІ */
+    .search-container {
       max-width: 900px;
-      margin: 30px auto;
-      padding: 0 20px;
-      display: none; /* Басында жабық тұрады, ресторан таңдағанда ашылады */
+      margin: 0 auto 20px auto;
+      display: flex;
+      gap: 10px;
     }
+    .search-container input {
+      flex: 1;
+      padding: 12px;
+      background: #2c1500;
+      border: 2px solid #ff6600;
+      border-radius: 8px;
+      color: white;
+      font-size: 16px;
+    }
+
+    /* 🍽️ МӘЗІР СЕКЦИЯСЫ */
+    .menu-container { max-width: 900px; margin: 0 auto; }
     .active-restaurant-title {
       text-align: center;
       color: #FFD700;
-      font-size: 36px;
+      font-size: 32px;
       margin-bottom: 25px;
       text-transform: uppercase;
       border-bottom: 2px dashed #ff6600;
       padding-bottom: 10px;
     }
-    .menu-section {
-      background: #2c1500;
-      border-radius: 15px;
-      margin-bottom: 25px;
-      overflow: hidden;
-      border: 1px solid #ff6600;
-    }
-    .menu-section h2 {
-      background: linear-gradient(135deg, #8B0000, #ff6600);
-      padding: 15px 25px;
-      font-size: 22px;
-      color: #FFD700;
-    }
-    .item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px 25px;
-      border-bottom: 1px solid #3d1a00;
-    }
+    .menu-section { background: #2c1500; border-radius: 15px; margin-bottom: 25px; overflow: hidden; border: 1px solid #ff6600; }
+    .menu-section h2 { background: linear-gradient(135deg, #8B0000, #ff6600); padding: 15px 25px; font-size: 22px; color: #FFD700; }
+    .item { display: flex; justify-content: space-between; align-items: center; padding: 15px 25px; border-bottom: 1px solid #3d1a00; }
     .item:last-child { border-bottom: none; }
     .item-info { flex: 1; }
-    .item-name {
-      font-size: 17px;
-      font-weight: bold;
-      color: #fff;
-    }
-    .item-desc {
-      font-size: 13px;
-      color: #aaa;
-      margin-top: 4px;
-    }
-    .price-action {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-    }
-    .price {
-      font-size: 18px;
-      font-weight: bold;
-      color: #FFD700;
-    }
-    .btn-add {
-      background: #ff6600;
-      color: white;
-      border: none;
-      padding: 6px 12px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: bold;
-      font-size: 14px;
-    }
+    .item-name { font-size: 17px; font-weight: bold; color: #fff; }
+    .item-desc { font-size: 13px; color: #aaa; margin-top: 4px; }
+    .price-action { display: flex; align-items: center; gap: 15px; }
+    .price { font-size: 18px; font-weight: bold; color: #FFD700; }
+    .btn-add { background: #ff6600; color: white; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 14px; }
     .btn-add:hover { background: #8B0000; }
+    .btn-delete-admin { background: #d32f2f; color: white; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-weight: bold; margin-left: 10px; }
 
-    /* 🛒 ИНТЕРАКТИВТІ СЕБЕТ (КОРЗИНА) */
-    .cart-section {
-      max-width: 900px;
-      margin: 30px auto;
-      padding: 25px;
-      background: #261100;
+    /* 🛠️ АДМИННІҢ МӘЗІР ҚОСУ ФОРМАСЫ */
+    .admin-controls {
+      background: #2c1500;
+      border: 2px solid #ff6600;
+      padding: 20px;
       border-radius: 15px;
-      border: 2px dashed #FFD700;
+      max-width: 900px;
+      margin: 0 auto 30px auto;
     }
-    .cart-section h2 {
-      color: #FFD700;
-      margin-bottom: 15px;
-      display: flex;
-      justify-content: space-between;
+    .admin-controls h3 { color: #FFD700; margin-bottom: 15px; }
+    .admin-form-group { display: flex; flex-wrap: wrap; gap: 10px; }
+    .admin-form-group input, .admin-form-group select {
+      flex: 1; min-width: 150px; padding: 10px; background: #1a0a00; border: 1px solid #ff6600; border-radius: 5px; color: white;
     }
-    .cart-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 0;
-      border-bottom: 1px solid #442200;
-    }
-    .cart-controls button {
-      background: #3d1a00;
-      color: white;
-      border: 1px solid #ff6600;
-      padding: 2px 8px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-    .total-price {
-      text-align: right;
-      font-size: 22px;
-      color: #FFD700;
-      margin-top: 15px;
-      font-weight: bold;
-    }
+    .admin-form-group button { background: #22c55e; color: white; border: none; padding: 10px 20px; border-radius: 5px; font-weight: bold; cursor: pointer; }
 
-    /* БАЙЛАНЫС ЖӘНЕ ТАПСЫРЫС */
-    .contact-box, .order-box {
-      max-width: 900px;
-      margin: 30px auto;
-      padding: 40px;
-      background: #2c1500;
-      border-radius: 15px;
-      border: 1px solid #ff6600;
-      text-align: center;
-    }
-    .contact-box h2, .order-box h2 {
-      color: #FFD700;
-      font-size: 28px;
-      margin-bottom: 20px;
-    }
-    .contact-box p {
-      font-size: 18px;
-      color: #ffe0b2;
-      margin: 10px 0;
-    }
-    .order-box input, .order-box textarea {
-      width: 100%;
-      padding: 12px;
-      margin: 10px 0;
-      background: #1a0a00;
-      border: 1px solid #ff6600;
-      border-radius: 8px;
-      color: #fff;
-      font-size: 16px;
-    }
-    .order-box button {
-      background: linear-gradient(135deg, #8B0000, #ff6600);
-      color: #FFD700;
-      border: none;
-      padding: 15px 40px;
-      font-size: 18px;
-      font-weight: bold;
-      border-radius: 10px;
-      cursor: pointer;
-      margin-top: 15px;
-    }
-    .order-box button:hover { opacity: 0.9; }
+    /* 🛒 СЕБЕТ ПЕН ТАПСЫРЫС */
+    .cart-section { max-width: 900px; margin: 0 auto 30px auto; padding: 25px; background: #261100; border-radius: 15px; border: 2px dashed #FFD700; }
+    .cart-section h2 { color: #FFD700; margin-bottom: 15px; display: flex; justify-content: space-between; }
+    .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #442200; }
+    .cart-controls button { background: #3d1a00; color: white; border: 1px solid #ff6600; padding: 2px 8px; cursor: pointer; font-weight: bold; }
+    .total-price { text-align: right; font-size: 22px; color: #FFD700; margin-top: 15px; font-weight: bold; }
+
+    .order-box { max-width: 900px; margin: 0 auto; padding: 30px; background: #2c1500; border-radius: 15px; border: 1px solid #ff6600; text-align: center; }
+    .order-box h2 { color: #FFD700; font-size: 24px; margin-bottom: 15px; }
+    .order-box input, .order-box textarea { width: 100%; padding: 12px; margin: 10px 0; background: #1a0a00; border: 1px solid #ff6600; border-radius: 8px; color: #fff; font-size: 16px; }
+    .order-box button { background: linear-gradient(135deg, #8B0000, #ff6600); color: #FFD700; border: none; padding: 15px 40px; font-size: 18px; font-weight: bold; border-radius: 10px; cursor: pointer; margin-top: 15px; }
+
+    /* БАЙЛАНЫС */
+    .contact-box { max-width: 900px; margin: 0 auto; padding: 40px; background: #2c1500; border-radius: 15px; border: 1px solid #ff6600; text-align: center; }
+    .contact-box h2 { color: #FFD700; font-size: 28px; margin-bottom: 20px; }
+    .contact-box p { font-size: 18px; color: #ffe0b2; margin: 10px 0; }
+
+    .orders-list { max-width: 900px; margin: 30px auto; padding: 0 20px; }
+    .order-card { background: #2c1500; border: 1px solid #ff6600; border-radius: 10px; padding: 15px 20px; margin-bottom: 10px; text-align: left; }
     
-    .orders-list { max-width: 900px; margin: 20px auto; padding: 0 20px; }
-    .order-card {
-      background: #2c1500;
-      border: 1px solid #ff6600;
-      border-radius: 10px;
-      padding: 15px 20px;
-      margin-bottom: 10px;
-      text-align: left;
-    }
-    .order-card p { color: #ffe0b2; margin: 4px 0; }
-    
-    footer {
-      text-align: center;
-      padding: 30px;
-      background: #2c0a00;
-      color: #ff9933;
-      margin-top: 40px;
-      border-top: 2px solid #ff6600;
-    }
+    footer { text-align: center; padding: 30px; background: #2c0a00; color: #ff9933; margin-top: 40px; border-top: 2px solid #ff6600; }
   </style>
 </head>
 <body>
 
-<header id="home">
-  <h1>🍽️ DAMAQ FOOD </h1>
-  <p>Бір жерде — Ең үздік 3 түрлі мейрамхана мәзірі!</p>
-  <p>📍 Алматы қ. | ⏰ Жұмыс уақыты: 10:00 - 23:00</p>
-</header>
-
-<nav>
-  <a href="#home">🏠 Басты бет</a>
-  <a href="#restaurants">🏢 Ресторандар</a>
-  <a href="#menu-anchor" id="nav-menu-link" style="display:none;">🍽️ Ағымдағы Мәзір</a>
-  <a href="#contact">📞 Байланыс</a>
-  <a href="#order">📋 Себет және Тапсырыс</a>
-</nav>
-
-<div class="hero">
-  ✨ Алдымен сүйікті рестораныңызды таңдаңыз, содан кейін эксклюзивті мәзір ашылады! ✨
+<div class="auth-screen" id="authScreen">
+  <div class="auth-box">
+    <h2>DAMAQ Жүйесіне кіру</h2>
+    <p>Клиент: <b>user</b> / 123 | Админ: <b>admin</b> / admin123</p>
+    <input type="text" id="username" placeholder="Логин енгізіңіз" required>
+    <input type="password" id="password" placeholder="Пароль енгізіңіз" required>
+    <button onclick="handleLogin()">Кіру 🔑</button>
+  </div>
 </div>
 
-<!-- 🏢 1-ҚАДАМ: РЕСТОРАН ТАНДАУ СЕКЦИЯСЫ -->
-<div class="restaurant-selection" id="restaurants">
-  <h2>Таңдаулы Мейрамханалар</h2>
-  <p>Қандай асхананың тағамын жегіңіз келеді? Төменнен біреуін басыңыз:</p>
-  
-  <div class="restaurant-grid">
-    <!-- 1. Қазақ & Шығыс -->
-    <div class="restaurant-card" onclick="selectRestaurant('damaq')">
-      <div class="icon">🥩</div>
-      <h3>DAMAQ ұлттық астары</h3>
-      <p>Бешбармақ, қуырдақ, шығыс палауы және ең дәмді ұлттық сусындар мен бауырсақтар.</p>
-      <span class="badge">Қазақ & Шығыс тағамдары</span>
+<div id="main-app">
+  <header>
+    <h1>🍽️ DAMAQ FOOD </h1>
+    <p>Бір жерде — Ең үздік 3 түрлі мейрамхана мәзірі!</p>
+    <p>📍 Алматы қ. | ⏰ Жұмыс уақыты: 10:00 - 23:00</p>
+  </header>
+
+  <nav>
+    <button onclick="navigateTo('restaurantsPage')">🏠 Мейрамханалар</button>
+    <button onclick="navigateTo('menuPage')" id="navMenuBtn" style="display:none;">🍽️ Мәзір</button>
+    <button onclick="navigateTo('cartPage')">🛒 Себет және Тапсырыс</button>
+    <button onclick="navigateTo('contactPage')">📞 Байланыс</button>
+    <span class="user-badge" id="roleBadge">Клиент</span>
+    <button onclick="handleLogout()" style="color: #ff3333; margin-left: 20px;">Шығу 🚪</button>
+  </nav>
+
+  <div id="restaurantsPage" class="page-section active">
+    <div class="hero">
+      ✨ Жобаға қош келдіңіз! Алдымен сүйікті рестораныңызды таңдаңыз, содан кейін эксклюзивті мәзір ашылады! ✨
+    </div>
+    <div class="restaurant-selection">
+      <h2>Таңдаулы Мейрамханалар</h2>
+      <p>Қандай асхананың тағамын жегіңіз келеді? Төменнен біреуін басыңыз:</p>
+      
+      <div class="restaurant-grid">
+        <div class="restaurant-card" onclick="selectRestaurant('damaq')">
+          <div class="icon">🥩</div>
+          <h3>DAMAQ ұлттық астары</h3>
+          <p>Бешбармақ, қуырдақ, шығыс палауы және ұлттық сусындар.</p>
+          <span class="badge">Қазақ & Шығыс тағамдары</span>
+        </div>
+        <div class="restaurant-card" onclick="selectRestaurant('pronto')">
+          <div class="icon">🍕</div>
+          <h3>Pronto Пиццерия</h3>
+          <p>Нағыз итальяндық жұқа қамырдағы пиццалар мен талғампаз пасталар.</p>
+          <span class="badge">Итальяндық мәзір</span>
+        </div>
+        <div class="restaurant-card" onclick="selectRestaurant('burger')">
+          <div class="icon">🍔</div>
+          <h3>Burger House</h3>
+          <p>Шырынды бургерлер, қытырлақ фри картобы мен салқын лимонадтар.</p>
+          <span class="badge">Фастфуд & Снэктер</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="menuPage" class="page-section">
+    <div class="menu-container">
+      <h2 class="active-restaurant-title" id="restNameTitle">Мәзір</h2>
+
+      <div class="search-container">
+        <input type="text" id="searchInput" oninput="filterMenu()" placeholder="🔍 Мәзірден тағам іздеу... (Мысалы: Палау, Пицца, Бургер)">
+      </div>
+
+      <div class="admin-controls" id="adminMenuControls" style="display: none;">
+        <h3>🛠️ Администратор панелі: Жаңа тағам қосу</h3>
+        <div class="admin-form-group">
+          <select id="newFoodSection">
+            </select>
+          <input type="text" id="newFoodName" placeholder="Тағам атауы">
+          <input type="text" id="newFoodDesc" placeholder="Құрамы / Сипаттамасы">
+          <input type="number" id="newFoodPrice" placeholder="Бағасы (₸)">
+          <button onclick="addNewFood()">➕ Мәзірге қосу</button>
+        </div>
+      </div>
+
+      <div id="menuEntries"></div>
+    </div>
+  </div>
+
+  <div id="cartPage" class="page-section">
+    <div class="cart-section">
+      <h2><span>🛒 Сіздің себетіңіз</span> <span id="cartCount">(0 тағам)</span></h2>
+      <div id="cartItemsContainer">
+        <p style="color:#aaa; font-style:italic;">Себет бос. Тағам таңдау үшін алдымен мейрамхана мәзіріне өтіңіз.</p>
+      </div>
+      <div class="total-price">Жалпы сомасы: <span id="totalSum">0</span> ₸</div>
     </div>
 
-    <!-- 2. Итальяндық -->
-    <div class="restaurant-card" onclick="selectRestaurant('pronto')">
-      <div class="icon">🍕</div>
-      <h3>Pronto Пиццерия</h3>
-      <p>Нағыз итальяндық жұқа қамырдағы пиццалар, талғампаз пасталар мен жеңіл еуропалық салаттар.</p>
-      <span class="badge">Итальяндық мәзір</span>
+    <div class="order-box" id="orderFormContainer">
+      <h2>📋 Тапсырысты рәсімдеу</h2>
+      <input type="text" id="nameInput" placeholder="Аты-жөніңізді жазыңыз" />
+      <input type="tel" id="phoneInput" placeholder="Телефон нөміріңіз (+7...)" />
+      <textarea id="noteInput" placeholder="Жеткізу мекенжайы немесе қосымша ескертпелер..." rows="3"></textarea>
+      
+      <div id="successMessage" style="display:none; background: linear-gradient(135deg, #006400, #22c55e); color:#fff; padding:15px; border-radius:10px; margin:15px 0; font-weight:bold;">
+        ✅ Тапсырысыңыз сәтті қабылданды!
+      </div>
+      <button onclick="submitOrder()">🛎️ Тапсырысты Жіберу</button>
     </div>
 
-    <!-- 3. FastFood -->
-    <div class="restaurant-card" onclick="selectRestaurant('burger')">
-      <div class="icon">🍔</div>
-      <h3>Burger House</h3>
-      <p>Шырынды бургерлер, қытырлақ фри картобы, тауық қанаттары мен салқын сергітетін лимонадтар.</p>
-      <span class="badge">Фастфуд & Снэктер</span>
+    <div class="orders-list" id="ordersList"></div>
+  </div>
+
+  <div id="contactPage" class="page-section">
+    <div class="contact-box">
+      <h2>📞 Байланыс & Мекенжай</h2>
+      <p>📍 Мекенжай: Алматы қ., Абай даңғылы, 1-ғимарат (Food Court орталығы)</p>
+      <p>☎️ Бірыңғай Call-center: +7 700 888 9999</p>
+      <p>⏰ Жұмыс уақыты: Күнделікті 10:00 - 23:00</p>
+      <p>📧 Email: support@damaqcourt.kz</p>
     </div>
   </div>
+
+  <footer>
+    <p>🍽️ DAMAQ Food Court Жүйесі ©️ 2026</p>
+    <p>Мұғалімді таңғалдыруға арналған қорғауға дайын креативті жоба.</p>
+  </footer>
 </div>
-
-<div id="menu-anchor"></div>
-
-<!-- 🍽️ 2-ҚАДАМ: ДИНАМИКАЛЫҚ МӘЗІР (БАСЫНДА ЖАБЫҚ, ЖАВАБЕН БАСҚАНДА АШЫЛАДЫ) -->
-<div class="menu-container" id="menu">
-  <h2 class="active-restaurant-title" id="restNameTitle">Мәзір</h2>
-  <div id="menuEntries">
-    <!-- Мәзір элементтері JavaScript арқылы осы жерге автоматты түрде салынады -->
-  </div>
-</div>
-
-<!-- 🛒 3-ҚАДАМ: ИНТЕРАКТИВТІ СЕБЕТ (САМ ОД КӨБЕЙТЕДІ, ЕСЕПТЕЙДІ) -->
-<div class="cart-section" id="cartSection" style="display: none;">
-  <h2><span>🛒 Сіздің себетіңіз</span> <span id="cartCount" style="font-size:16px; color:#aaa;">(0 тағам)</span></h2>
-  <div id="cartItemsContainer">
-    <p style="color:#aaa; font-style:italic;" id="emptyCartText">Себет бос. Төмендегі мәзірден тағам қосыңыз.</p>
-  </div>
-  <div class="total-price">Жалпы сомасы: <span id="totalSum">0</span> ₸</div>
-</div>
-
-<!-- 📞 БАЙЛАНЫС СЕКЦИЯСЫ -->
-<div class="contact-box" id="contact">
-  <h2>📞 Байланыс & Мекенжай</h2>
-  <p>📍 Мекенжай: Алматы қ., Абай даңғылы, 1-ғимарат (Food Court орталығы)</p>
-  <p>☎️ Бірыңғай Call-center: +7 700 888 9999</p>
-  <p>⏰ Жұмыс уақыты: Күнделікті 10:00 - 23:00</p>
-  <p>📧 Email: support@damaqcourt.kz</p>
-</div>
-
-<!-- 📋 ТАПСЫРЫС БЕРУ ФОРМАСЫ -->
-<div class="order-box" id="order">
-  <h2>📋 Тапсырысты рәсімдеу</h2>
-  <p style="color: #ffe0b2; margin-bottom: 15px;">Жоғарыдағы себетке тағамдар қосқан соң, деректеріңізді енгізіп тапсырысты растаңыз.</p>
-  <input type="text" id="nameInput" placeholder="Аты-жөніңізді жазыңыз" />
-  <input type="tel" id="phoneInput" placeholder="Телефон нөміріңіз (+7...)" />
-  <textarea id="noteInput" placeholder="Жеткізу мекенжайы немесе мейрамханаға қосымша ескертпелер..." rows="3"></textarea>
-  
-  <div id="success" style="display:none; background: linear-gradient(135deg, #006400, #22c55e); color:#fff; padding:20px; border-radius:10px; margin-top:15px; font-size:18px; font-weight:bold; text-shadow: 1px 1px 2px #000;">
-    ✅ Керемет! Тапсырысыңыз сәтті қабылданды! Аспаздар іске кірісті. 🛎️
-  </div>
-  <button onclick="submitOrder()">🛎️ Тапсырысты Жіберу</button>
-</div>
-
-<!-- ҚАБЫЛДАНҒАН ТАПСЫРЫСТАР ТІЗІМІ -->
-<div class="orders-list" id="ordersList"></div>
-
-<footer>
-  <p>🍽️ DAMAQ Food Court Жүйесі ©️ 2026</p>
-  <p>Мұғалімді таңғалдыруға арналған креативті бағдарламалық жоба.</p>
-</footer>
 
 <script>
-  // 📊 БАРЛЫҚ РЕСТОРАНДАРДЫҢ МӘЛІМЕТТЕР БАЗАСЫ (ДАТА-БАЗА)
+  // 📊 ДЕҢГЕЙЛІ МӘЛІМЕТТЕР БАЗАСЫ
   const database = {
     damaq: {
       title: "DAMAQ Ұлттық Тағамдары",
@@ -399,16 +361,14 @@
           items: [
             { name: "Бешбармақ (Қой етімен)", desc: "Дәстүрлі қазақ тағамы, қолдың жаймасы, сорпасымен", price: 2500 },
             { name: "Мерекелік Палау", desc: "Өзбек күріші, шырынды сиыр еті, бөдене жұмыртқасы", price: 1800 },
-            { name: "Сыйлы Манты (5 дана)", desc: "Ірі туралған ет пен пияз, жұқа қамыр", price: 1500 },
-            { name: "Қазан Қуырдақ", desc: "Жас қой еті мен бауыр, картоп, пиязбен қуырылған", price: 2000 }
+            { name: "Сыйлы Манты (5 дана)", desc: "Ірі туралған ет пен пияз, жұқа қамыр", price: 1500 }
           ]
         },
         {
           name: "🥤 Сусындар мен Тәттілер",
           items: [
             { name: "Шипалы Қымыз (1л)", desc: "Табиғи, ашытылған бие сүті", price: 1200 },
-            { name: "Бал Бауырсақтар (себет)", desc: "Ыстық, үлпілдек үй бауырсақтары", price: 500 },
-            { name: "Шәйнек Шай", desc: "Сүт қосқан қазақша қара шай немесе лимонды жасыл шай", price: 400 }
+            { name: "Бал Бауырсақтар", desc: "Ыстық, үлпілдек үй бауырсақтары", price: 500 }
           ]
         }
       ]
@@ -419,17 +379,15 @@
         {
           name: "🍕 Итальяндық Пиццалар",
           items: [
-            { name: "Маргарита Пиццасы", desc: "Моцарелла ірімшігі, жаңа томаттар, базилик, зәйтүн майы", price: 2200 },
-            { name: "Пепперони Пиццасы", desc: "Ащы итальян шұжықтары, көп мөлшердегі ірімшік", price: 2700 },
-            { name: "Төрт Ірімшік (4 Formaggi)", desc: "Дорблю, пармезан, моцарелла, чеддер үйлесімі", price: 3100 }
+            { name: "Маргарита Пиццасы", desc: "Моцарелла ірімшігі, жаңа томаттар, базилик", price: 2200 },
+            { name: "Пепперони Пиццасы", desc: "Ащы итальян шұжықтары, көп ірімшік", price: 2700 }
           ]
         },
         {
           name: "🍝 Пасталар мен Салаттар",
           items: [
-            { name: "Паста Карбонара", desc: "Спагетти, бекон, жұмыртқа соусы, пармезан", price: 1900 },
-            { name: "Классикалық Цезарь", desc: "Тауық филесі, айсберг салаты, пармезан, фирменді соус", price: 1600 },
-            { name: "Итальяндық Тирамису", desc: "Маскарпоне кремі мен кофе сіңірілген савоярди печеньесі", price: 1100 }
+            { name: "Паста Carbonara", desc: "Спагетти, бекон, жұмыртқа соусы, пармезан", price: 1900 },
+            { name: "Классикалық Цезарь", desc: "Тауық филесі, айсберг салаты, пармезан", price: 1600 }
           ]
         }
       ]
@@ -440,31 +398,73 @@
         {
           name: "🍔 Фирменді Бургерлер",
           items: [
-            { name: "Шеф Бургер ХХL", desc: "Екі қабатты сиыр еті котлеті, чеддер, маринадталған қияр, BBQ", price: 1950 },
-            { name: "Чизбургер Классик", desc: "Шырынды котлет, еріген ірімшік, қызанақ, арнайы соус", price: 1200 },
-            { name: "Спид Чикен Бургер", desc: "Қытырлақ тауық еті, балғын салат жапырақтары, майонез", price: 1400 }
+            { name: "Шеф Бургер ХХL", desc: "Екі қабатты сиыр еті котлеті, чеддер, BBQ", price: 1950 },
+            { name: "Чизбургер Классик", desc: "Шырынды котлет, еріген ірімшік, қызанақ", price: 1200 }
           ]
         },
         {
           name: "🍟 Снэктер мен Лимонадтар",
           items: [
-            { name: "Картофель Фри (Үлкен)", desc: "Алтын түсті, қытырлақ фри картобы + кетчуп", price: 600 },
-            { name: "BBQ Тауық Қанаттары (6 дана)", desc: "Ащы-тәтті соустағы гриль қанаттары", price: 1300 },
-            { name: "Жалбызды Лимонад (0.5л)", desc: "Лимон, жалбыз, мұз, сергітетін газды сусын", price: 700 }
+            { name: "Картофель Фри (Үлкен)", desc: "Алтын түсті қытырлақ фри картобы", price: 600 },
+            { name: "Жалбызды Лимонад (0.5л)", desc: "Лимон, жалбыз, мұз, сергітетін сусын", price: 700 }
           ]
         }
       ]
     }
   };
 
-  // 🛒 СЕБЕТТІҢ ЖАҒДАЙЫ (ГЛОБАЛДЫ МАС СИВ)
   let cart = [];
   let currentRestaurantKey = '';
   let ordersHistory = [];
+  let currentUserRole = 'user'; // 'user' немесе 'admin'
 
-  // 🏢 РЕСТОРАНДЫ ТАНДАҒАНДАҒЫ ФУНКЦИЯ
+  // 🔐 ЛОГИН ЖҮЙЕСІ
+  function handleLogin() {
+    const userInp = document.getElementById('username').value.trim();
+    const passInp = document.getElementById('password').value.trim();
+
+    if (userInp === 'admin' && passInp === 'admin123') {
+      currentUserRole = 'admin';
+      alert('Қош келдіңіз, Админ! Басқару панелі іске қосылды.');
+    } else if (userInp === 'user' && passInp === '123') {
+      currentUserRole = 'user';
+      alert('Жүйеге клиент ретінде сәтті кірдіңіз!');
+    } else if (userInp !== '' && passInp === '123') {
+      currentUserRole = 'user'; // Паролі 123 болса кез келген есіммен кіре береді
+      alert(`Қош келдіңіз, ${userInp}!`);
+    } else {
+      alert('Қате логин немесе пароль! Қайта көріңіз.');
+      return;
+    }
+
+    // Интерфейсті рөлге сай баптау
+    document.getElementById('roleBadge').innerText = currentUserRole === 'admin' ? "👑 Админ" : "👤 Клиент";
+    document.getElementById('authScreen').style.display = 'none';
+    document.getElementById('main-app').style.display = 'block';
+    
+    // Егер админ болса, тапсырыстар тізімін бірден шығару
+    renderOrdersHistory();
+  }
+
+  function handleLogout() {
+    document.getElementById('main-app').style.display = 'none';
+    document.getElementById('authScreen').style.display = 'flex';
+    document.getElementById('username').value = '';
+    document.getElementById('password').value = '';
+    cart = [];
+    updateCartUI();
+  }
+
+  // 🗺️ СТАТИКАЛЫҚ БЕТТЕРГЕ НАВИГАЦИЯ ЖАСАУ
+  function navigateTo(pageId) {
+    document.querySelectorAll('.page-section').forEach(page => {
+      page.classList.remove('active');
+    });
+    document.getElementById(pageId).classList.add('active');
+  }
+
+  // 🏢 РЕСТОРАНДЫ ТАНДАУ
   function selectRestaurant(key) {
-    // Егер басқа ресторан таңдалса және себетте зат болса ескерту жасау
     if (cart.length > 0 && currentRestaurantKey !== key) {
       let confirmClear = confirm("Басқа мейрамхана таңдасаңыз, себеттегі тағамдар өшіріледі. Растайсыз ба?");
       if (!confirmClear) return;
@@ -473,45 +473,103 @@
     }
 
     currentRestaurantKey = key;
-    const resData = database[key];
+    document.getElementById('navMenuBtn').style.display = 'inline-block';
     
-    // Элементтерді көрсету
-    document.getElementById('menu').style.display = 'block';
-    document.getElementById('cartSection').style.display = 'block';
-    document.getElementById('nav-menu-link').style.display = 'inline-block';
-    
-    // Тақырыпты жаңарту
-    document.getElementById('restNameTitle').innerText = "🏢 " + resData.title + " Мәзірі";
-
-    // Мәзірді HTML қылып құрастыру
-    let menuHTML = "";
-    resData.sections.forEach(section => {
-      menuHTML += `<div class="menu-section">
-        <h2>${section.name}</h2>`;
-      
-      section.items.forEach(item => {
-        menuHTML += `<div class="item">
-          <div class="item-info">
-            <div class="item-name">${item.name}</div>
-            <div class="item-desc">${item.desc}</div>
-          </div>
-          <div class="price-action">
-            <span class="price">${item.price.toLocaleString()} ₸</span>
-            <button class="btn-add" onclick="addToCart('${item.name}', ${item.price})">➕ Қосу</button>
-          </div>
-        </div>`;
+    // Админ басқаруын көрсету немесе жасыру
+    const adminPanel = document.getElementById('adminMenuControls');
+    if (currentUserRole === 'admin') {
+      adminPanel.style.display = 'block';
+      // Админ селекторына секцияларды толтыру
+      const selectSection = document.getElementById('newFoodSection');
+      selectSection.innerHTML = '';
+      database[key].sections.forEach((sec, idx) => {
+        selectSection.innerHTML += `<option value="${idx}">${sec.name}</option>`;
       });
+    } else {
+      adminPanel.style.display = 'none';
+    }
 
-      menuHTML += `</div>`;
-    });
-
-    document.getElementById('menuEntries').innerHTML = menuHTML;
-
-    // Скролл жасап мәзірге апару
-    document.getElementById('menu-anchor').scrollIntoView({ behavior: 'smooth' });
+    renderMenu();
+    navigateTo('menuPage');
   }
 
-  // 🛒 СЕБЕТКЕ ТАҒАМ ҚОСУ
+  // 🍽️ МӘЗІРДІ ЭКРАНҒА ШЫҒАРУ (ІЗДЕУ ФУНКЦИЯСЫН ЕСКЕРЕ ОТЫРЫП)
+  function renderMenu(filterText = '') {
+    const resData = database[currentRestaurantKey];
+    document.getElementById('restNameTitle').innerText = "🏢 " + resData.title;
+
+    let menuHTML = "";
+    resData.sections.forEach((section, sIdx) => {
+      // Іздеу сөзі бойынша тағамдарды сүзгілеу
+      let filteredItems = section.items.filter(item => 
+        item.name.toLowerCase().includes(filterText.toLowerCase()) || 
+        item.desc.toLowerCase().includes(filterText.toLowerCase())
+      );
+
+      if (filteredItems.length > 0) {
+        menuHTML += `<div class="menu-section"><h2>${section.name}</h2>`;
+        
+        filteredItems.forEach((item, iIdx) => {
+          // Нақты массивтегі индексін табу (өшіру үшін керек)
+          let realIndex = section.items.findIndex(realItem => realItem.name === item.name);
+
+          menuHTML += `<div class="item">
+            <div class="item-info">
+              <div class="item-name">${item.name}</div>
+              <div class="item-desc">${item.desc}</div>
+            </div>
+            <div class="price-action">
+              <span class="price">${item.price.toLocaleString()} ₸</span>
+              <button class="btn-add" onclick="addToCart('${item.name}', ${item.price})">➕ Қосу</button>
+              ${currentUserRole === 'admin' ? `<button class="btn-delete-admin" onclick="deleteFood(${sIdx}, ${realIndex})">🗑️ Өшіру</button>` : ''}
+            </div>
+          </div>`;
+        });
+        menuHTML += `</div>`;
+      }
+    });
+
+    document.getElementById('menuEntries').innerHTML = menuHTML || `<p style='text-align:center; color:#aaa;'>Тағам табылмады...</p>`;
+  }
+
+  // 🔍 ІЗДЕУ ТҮЙМЕСІ ІСКЕ ҚОСЫЛҒАНДА
+  function filterMenu() {
+    const text = document.getElementById('searchInput').value;
+    renderMenu(text);
+  }
+
+  // ⚙️ АДМИН: МӘЗІРГЕ ЖАҢА ТАҒАМ ҚОСУ
+  function addNewFood() {
+    const sIdx = document.getElementById('newFoodSection').value;
+    const name = document.getElementById('newFoodName').value.trim();
+    const desc = document.getElementById('newFoodDesc').value.trim();
+    const price = parseInt(document.getElementById('newFoodPrice').value);
+
+    if (!name || !desc || isNaN(price)) {
+      alert('Барлық өрістерді дұрыс толтырыңыз!');
+      return;
+    }
+
+    database[currentRestaurantKey].sections[sIdx].items.push({ name, desc, price });
+    alert('Жаңа тағам мәзірге сәтті қосылды!');
+    
+    // Форманы тазалау
+    document.getElementById('newFoodName').value = '';
+    document.getElementById('newFoodDesc').value = '';
+    document.getElementById('newFoodPrice').value = '';
+    
+    renderMenu();
+  }
+
+  // ⚙️ АДМИН: МӘЗІРДЕН ТАҒАМДЫ ӨШІРУ
+  function deleteFood(sIdx, iIdx) {
+    if (confirm("Бұл тағамды мәзірден өшіргіңіз келетіні анық па?")) {
+      database[currentRestaurantKey].sections[sIdx].items.splice(iIdx, 1);
+      renderMenu();
+    }
+  }
+
+  // 🛒 СЕБЕТ ПЕН САНДАРДЫ БАСҚАРУ
   function addToCart(name, price) {
     let existingItem = cart.find(item => item.name === name);
     if (existingItem) {
@@ -522,7 +580,6 @@
     updateCartUI();
   }
 
-  // СЕБЕТТЕГІ САНДЫ ӨЗГЕРТУ
   function changeQuantity(name, delta) {
     let item = cart.find(item => item.name === name);
     if (item) {
@@ -534,14 +591,13 @@
     updateCartUI();
   }
 
-  // 🔄 СЕБЕТТІ ЭКРАНҒА ЖАҢАРТЫП ШЫҒАРУ
   function updateCartUI() {
     const container = document.getElementById('cartItemsContainer');
     const totalSumEl = document.getElementById('totalSum');
     const cartCountEl = document.getElementById('cartCount');
 
     if (cart.length === 0) {
-      container.innerHTML = `<p style="color:#aaa; font-style:italic;" id="emptyCartText">Себет бос. Төмендегі мәзірден тағам қосыңыз.</p>`;
+      container.innerHTML = `<p style="color:#aaa; font-style:italic;">Себет бос. Тамақ қосыңыз.</p>`;
       totalSumEl.innerText = "0";
       cartCountEl.innerText = "(0 тағам)";
       return;
@@ -561,11 +617,11 @@
           <span style="font-weight:bold; color:#FFD700;">${item.name}</span> 
           <span style="color:#aaa; margin-left:10px;">(${item.price} ₸)</span>
         </div>
-        <div class="cart-controls" style="display:flex; align-items:center; gap:10px;">
+        <div class="cart-controls">
           <button onclick="changeQuantity('${item.name}', -1)">-</button>
-          <span style="font-weight:bold; width:20px; text-align:center;">${item.quantity}</span>
+          <span style="font-weight:bold; display:inline-block; width:25px; text-align:center;">${item.quantity}</span>
           <button onclick="changeQuantity('${item.name}', 1)">+</button>
-          <span style="font-weight:bold; color:#fff; min-width:70px; text-align:right;">${itemTotal.toLocaleString()} ₸</span>
+          <span style="font-weight:bold; margin-left:15px;">${itemTotal.toLocaleString()} ₸</span>
         </div>
       </div>`;
     });
@@ -575,29 +631,26 @@
     cartCountEl.innerText = `(${totalItemsCount} тағам)`;
   }
 
-  // 🛎️ ТАПСЫРЫСТЫ ТОЛЫҚТАЙ АЯҚТАУ СЕКЦИЯСЫ
+  // 🛎️ ТАПСЫРЫС БЕРУ
   function submitOrder() {
     let name = document.getElementById('nameInput').value.trim();
     let phone = document.getElementById('phoneInput').value.trim();
     let note = document.getElementById('noteInput').value.trim();
 
     if (cart.length === 0) {
-      alert('Тапсырыс беру үшін алдымен себетке тағам қосыңыз!');
+      alert('Себет бос! Алдымен тағам таңдаңыз.');
       return;
     }
     if (!name || !phone) {
-      alert('Өтініш, Атыңыз бен Телефон нөміріңізді толық енгізіңіз!');
+      alert('Атыңыз бен Телефон нөміріңізді жазыңыз!');
       return;
     }
 
-    // Тапсырыс мәтінін құрастыру (чек)
     let foodListText = cart.map(item => `${item.name} (x${item.quantity})`).join(', ');
     let finalSum = document.getElementById('totalSum').innerText;
-    let restaurantName = database[currentRestaurantKey].title;
 
-    // Жаңа тапсырыс объектісін жасау
     let newOrder = {
-      restaurant: restaurantName,
+      restaurant: database[currentRestaurantKey].title,
       name: name,
       phone: phone,
       foods: foodListText,
@@ -607,41 +660,49 @@
 
     ordersHistory.push(newOrder);
 
-    // Сәттілік хабарламасын көрсету
-    document.getElementById('success').style.display = 'block';
-    
-    // Формаларды тазалау
+    document.getElementById('successMessage').style.display = 'block';
     document.getElementById('nameInput').value = '';
     document.getElementById('phoneInput').value = '';
     document.getElementById('noteInput').value = '';
     
-    // Себетті босату
     cart = [];
     updateCartUI();
 
-    // 3 секундтан кейін сәттілік жазуын өшіру
     setTimeout(() => {
-      document.getElementById('success').style.display = 'none';
-    }, 4000);
+      document.getElementById('successMessage').style.display = 'none';
+    }, 3000);
 
-    // Төмендегі Қабылданған тапсырыстар тізімін жаңарту
     renderOrdersHistory();
   }
 
-  // ТАПСЫРЫС ТАРИХЫН ЭКРАНҒА ШЫҒАРУ
+  // 📋 ТАПСЫРЫСТАР МОНИ ТОР ИНГІ (АДМИН КӨРЕДІ ЖӘНЕ ӨШІРЕ АЛАДЫ)
   function renderOrdersHistory() {
     const list = document.getElementById('ordersList');
-    list.innerHTML = '<h2 style="color:#FFD700; text-align:center; margin: 30px 0 15px 0;">📦 Мониторинг: Қабылданған тапсырыстар (Админ панель)</h2>';
+    list.innerHTML = '';
     
+    // Барлық пайдаланушыларға тарих тақырыбын шығару
+    if(ordersHistory.length > 0) {
+      list.innerHTML = `<h2 style="color:#FFD700; text-align:center; margin-bottom:15px;">📦 Бақылау панелі: Түскен тапсырыстар</h2>`;
+    }
+
     ordersHistory.forEach((o, i) => {
       list.innerHTML += `<div class="order-card" style="border-left: 5px solid #22c55e;">
         <p><span style="color:#ff6600; font-weight:bold;">🔢 Тапсырыс #${i + 1}</span> | 🏢 Мейрамхана: <b>${o.restaurant}</b></p>
         <p>👤 <b>Клиент:</b> ${o.name} | 📞 <b>Тел:</b> ${o.phone}</p>
         <p>🍽️ <b>Тағамдар:</b> <span style="color:#FFD700;">${o.foods}</span></p>
-        <p>📝 <b>Жеткізу / Ескертпе:</b> ${o.note}</p>
-        <p style="text-align:right; font-weight:bold; color:#22c55e; font-size:18px;">Төленді: ${o.sum} ₸</p>
+        <p>📝 <b>Ескертпе:</b> ${o.note}</p>
+        <p style="text-align:right; font-weight:bold; color:#22c55e; font-size:18px;">Сормасы: ${o.sum} ₸</p>
+        ${currentUserRole === 'admin' ? `<button class="btn-delete-admin" style="margin-top:10px; width:100%;" onclick="deleteOrder(${i})">🗑️ Тапсырысты өшіру (Орындалды)</button>` : ''}
       </div>`;
     });
+  }
+
+  // ⚙️ АДМИН: ТАПСЫРЫСТЫ ӨШІРУ (Орындалғаннан кейін тізімнен алып тастау)
+  function deleteOrder(index) {
+    if (confirm("Тапсырыс толық орындалды ма? Оны тізімнен өшіруді растайсыз ба?")) {
+      ordersHistory.splice(index, 1);
+      renderOrdersHistory();
+    }
   }
 </script>
 
